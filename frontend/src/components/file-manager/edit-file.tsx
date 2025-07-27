@@ -10,6 +10,7 @@ import { type Player } from "../../types/player";
 import type { RepoFile } from "../../types/RepoFile";
 import { TeamBox } from "./team-box";
 import type { Team } from "../../types/team";
+import { postFetcher } from "../../utils/fetcher";
 
 const EditFile: React.FC = () => {
 
@@ -49,9 +50,28 @@ const EditFile: React.FC = () => {
         setTeam(team);
     }
 
-    const handleSaveFile = useCallback(() => {
+    const handleSaveFile = useCallback(async () => {
 
-    }, []);
+        try {
+            const blob = await postFetcher<Blob>('http://localhost:3000/file-manager/savefile', fileContent, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                responseType: "blob",
+            });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "tempname.es3";
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        } finally {
+
+        }
+
+    }, [fileContent]);
 
     const handleChangePlayer = useCallback((
         playerId: string, 

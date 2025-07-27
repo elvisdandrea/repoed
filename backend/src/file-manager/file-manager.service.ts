@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFileManagerDto } from './dto/create-file-manager.dto';
-import { UpdateFileManagerDto } from './dto/update-file-manager.dto';
 import { ReadFileDto } from './dto/read-file-dto';
-import { decryptEs3 } from './utils/encryption';
+import { decryptEs3, encryptEs3 } from './utils/encryption';
+import { Response } from 'express';
 
 const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 
@@ -10,31 +9,21 @@ const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 export class FileManagerService {
 
   readFile(readFileDto: ReadFileDto, fileBuffer: Buffer) {
-    
-
     const encryptedBytes = new Uint8Array(fileBuffer);
     const result = decryptEs3(encryptedBytes, password);
+    console.log(result);
     return result;
   } 
 
+  async saveFile(res: Response, body: any) {
+    const jsonString = JSON.stringify(body);
+    const encryptedBytes = encryptEs3(jsonString, password); 
 
-  create(createFileManagerDto: CreateFileManagerDto) {
-    return 'This action adds a new fileManager';
-  }
-
-  findAll() {
-    return `This action returns all fileManager`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} fileManager`;
-  }
-
-  update(id: number, updateFileManagerDto: UpdateFileManagerDto) {
-    return `This action updates a #${id} fileManager`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} fileManager`;
+    // Send as a downloadable file
+    res.set({
+      'Content-Type': 'application/octet-stream',
+      'Content-Disposition': 'attachment; filename="encrypted.es3"',
+    });
+    res.send(Buffer.from(encryptedBytes));
   }
 }

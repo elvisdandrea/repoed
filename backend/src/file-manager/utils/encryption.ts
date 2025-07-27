@@ -36,6 +36,38 @@ export function decryptEs3(encryptedBytes: Uint8Array, password) {
   }
 }
 
+export function encryptEs3(plainText: string, password: string): Uint8Array {
+  // 1. Gzip-compress the data
+  const compressed = pako.gzip(plainText); // Uint8Array
+
+  // 2. Generate a random IV (16 bytes)
+  const ivBytes = CryptoJS.lib.WordArray.random(16);
+  const ivUint8 = wordArrayToUint8Array(ivBytes);
+
+  // 3. Derive the key with PBKDF2 (must match decrypt)
+  const key = CryptoJS.PBKDF2(password, ivBytes, {
+    keySize: 128 / 32, // 128-bit key
+    iterations: 100,
+    hasher: CryptoJS.algo.SHA1,
+  });
+
+  // 4. Encrypt using AES-CBC with that IV
+  const plaintextWA = u8ToWordArray(compressed);
+  const encrypted = CryptoJS.AES.encrypt(plaintextWA, key, {
+    iv: ivBytes,
+    mode: CryptoJS.mode.CBC,
+    padding: CryptoJS.pad.Pkcs7,
+  });
+
+  // 5. Combine IV + ciphertext into a single Uint8Array
+  const cipherUint8 = wordArrayToUint8Array(encrypted.ciphertext);
+  const result = new Uint8Array(ivUint8.length + cipherUint8.length);
+  result.set(ivUint8, 0);
+  result.set(cipherUint8, ivUint8.length);
+
+  return result;
+}
+
 // Helper: convert CryptoJS WordArray to Uint8Array
 function wordArrayToUint8Array(wordArray) {
   const words = wordArray.words;

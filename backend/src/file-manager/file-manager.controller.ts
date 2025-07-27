@@ -1,9 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Post, Body, UseInterceptors, UploadedFile, Res } from '@nestjs/common';
 import { FileManagerService } from './file-manager.service';
-import { CreateFileManagerDto } from './dto/create-file-manager.dto';
-import { UpdateFileManagerDto } from './dto/update-file-manager.dto';
 import { ReadFileDto } from './dto/read-file-dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { Response } from 'express';
 
 @Controller('file-manager')
 export class FileManagerController {
@@ -20,28 +19,11 @@ export class FileManagerController {
     return { decrypted };
   }
 
-  @Post()
-  create(@Body() createFileManagerDto: CreateFileManagerDto) {
-    return this.fileManagerService.create(createFileManagerDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.fileManagerService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.fileManagerService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFileManagerDto: UpdateFileManagerDto) {
-    return this.fileManagerService.update(+id, updateFileManagerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.fileManagerService.remove(+id);
+  @Post('saveFile')
+  async saveFile(
+    @Res() res: Response,
+    @Body() body: any
+  ) {
+    return await this.fileManagerService.saveFile(res, body);
   }
 }
