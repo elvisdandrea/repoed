@@ -1,13 +1,17 @@
 import React, { useState, useCallback } from 'react';
-import { decryptEs3 } from '../../../utils/encryption';
 import { postFetcher } from '../../../utils/fetcher';
 
-export default function FileDropArea() {
-  const [fileContent, setFileContent] = useState('');
+interface FileDropAreaProps {
+  handleSetFileContent: (content: Object) => void;
+}
+
+const FileDropArea: React.FC<FileDropAreaProps> = ({ 
+  handleSetFileContent
+}) => {
   const [isDragging, setIsDragging] = useState(false);
 
   // handle the drop event
-  const handleDrop = useCallback(async (e) => {
+  const handleDrop = useCallback(async (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
@@ -22,20 +26,20 @@ export default function FileDropArea() {
 
     try {
       const res = await postFetcher('http://localhost:3000/file-manager/readfile', formData);
-      console.log(res);
+      handleSetFileContent(JSON.parse(res.decrypted));
     } finally {
       //
     }
-  }, []);
+  }, [handleSetFileContent]);
 
   // handle drag events
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(true);
   };
 
-  const handleDragLeave = (e) => {
+  const handleDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
@@ -59,13 +63,8 @@ export default function FileDropArea() {
       >
         Drag your file here
       </div>
-
-      {fileContent && (
-        <div style={{ marginTop: '20px', whiteSpace: 'pre-wrap', textAlign: 'left' }}>
-          <h3>File Content:</h3>
-          <pre>{fileContent}</pre>
-        </div>
-      )}
     </div>
   );
 }
+
+export { FileDropArea }

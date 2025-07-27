@@ -1,0 +1,492 @@
+enum dashTypes {
+    String = "string",
+    Float = "float"
+}
+
+type RepoFile = {
+    [key: string]: { value: any };
+    "teamName": {
+        "__type": dashTypes.String;
+        "value": string;
+    },
+    "dateAndTime": {
+        "__type": dashTypes.String;
+        "value": string;
+    },
+    "timePlayed": {
+        "__type": dashTypes.Float;
+        "value": number;
+    },
+    "playerNames": {
+        "__type": string;
+        "value": Object;
+    },
+    "dictionaryOfDictionaries": {
+        "__type": string;
+        "value": {
+            [key: string]: any;
+            "runStats": {
+                "level": number;
+                "currency": number;
+                "lives": number;
+                "chargingStationCharge": number;
+                "chargingStationChargeTotal": number;
+                "totalHaul": number;
+                "save level": number;
+            },
+            "itemsPurchased": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+            },
+            "itemsPurchasedTotal": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+            },
+            "itemsUpgradesPurchased": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+            },
+            "itemBatteryUpgrades": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+            },
+            "playerHealth": {[key: string]: number},
+            "playerUpgradeHealth": {[key: string]: number },
+            "playerUpgradeStamina": {[key: string]: number },
+            "playerUpgradeExtraJump": {[key: string]: number },
+            "playerUpgradeLaunch": {[key: string]: number },
+            "playerUpgradeMapPlayerCount": {[key: string]: number },
+            "playerUpgradeSpeed": {[key: string]: number },
+            "playerUpgradeStrength": {[key: string]: number },
+            "playerUpgradeRange": {[key: string]: number },
+            "playerUpgradeThrow": {[key: string]: number },
+            "playerUpgradeCrouchRest": {[key: string]: number },
+            "playerUpgradeTumbleWings": {[key: string]: number },
+            "playerHasCrown": {[key: string]: number },
+            "item": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+                "Item Cart Medium/1": number;
+                "Item Grenade Human/1": number;
+                "Item Duck Bucket/1": number;
+                "Item Grenade Human/2": number;
+                "Item Power Crystal/1": number;
+                "Item Upgrade Player Energy/1": number;
+                "Item Upgrade Player Energy/2": number;
+                "Item Upgrade Player Extra Jump/1": number;
+                "Item Upgrade Player Health/1": number;
+                "Item Rubber Duck/1": number;
+                "Item Orb Zero Gravity/1": number;
+                "Item Upgrade Player Tumble Wings/1": number;
+                "Item Power Crystal/2": number;
+                "Item Grenade Explosive/1": number;
+                "Item Cart Small/1": number;
+                "Item Upgrade Player Grab Range/1": number;
+                "Item Power Crystal/3": number;
+                "Item Health Pack Large/1": number;
+                "Item Phase Bridge/1": number;
+                "Item Upgrade Player Grab Range/2": number;
+                "Item Upgrade Player Sprint Speed/1": number;
+                "Item Gun Shockwave/1": number;
+                "Item Mine Explosive/1": number;
+                "Item Upgrade Player Sprint Speed/2": number;
+                "Item Upgrade Player Grab Strength/1": number;
+                "Item Grenade Explosive/2": number;
+                "Item Upgrade Player Sprint Speed/3": number;
+                "Item Power Crystal/4": number;
+                "Item Power Crystal/5": number;
+                "Item Drone Battery/1": number;
+                "Item Gun Handgun/1": number;
+                "Item Gun Laser/1": number;
+                "Item Gun Shotgun/1": number;
+                "Item Gun Tranq/1": number;
+                "Item Upgrade Player Crouch Rest/1": number;
+                "Item Mine Stun/1": number;
+                "Item Grenade Stun/1": number;
+                "Item Upgrade Player Crouch Rest/2": number;
+                "Item Valuable Tracker/1": number;
+                "Item Cart Medium/2": number;
+                "Item Upgrade Player Tumble Launch/1": number;
+                "Item Health Pack Small/3": number;
+                "Item Upgrade Map Player Count/1": number;
+                "Item Upgrade Player Crouch Rest/3": number;
+                "Item Health Pack Medium/4": number;
+                "Item Health Pack Medium/5": number;
+                "Item Duck Bucket/2": number;
+                "Item Grenade Duct Taped/1": number;
+                "Item Cart Small/2": number;
+                "Item Drone Indestructible/1": number;
+                "Item Grenade Shockwave/1": number;
+                "Item Gun Stun/1": number;
+                "Item Cart Cannon/1": number;
+                "Item Upgrade Player Energy/3": number;
+                "Item Health Pack Medium/6": number;
+                "Item Health Pack Small/4": number;
+                "Item Health Pack Large/3": number;
+                "Item Upgrade Player Grab Strength/2": number;
+                "Item Upgrade Player Energy/4": number;
+                "Item Upgrade Player Energy/5": number;
+                "Item Upgrade Player Energy/6": number;
+                "Item Health Pack Small/5": number;
+                "Item Upgrade Player Energy/7": number;
+                "Item Upgrade Player Crouch Rest/4": number;
+                "Item Upgrade Player Grab Range/3": number;
+                "Item Upgrade Player Grab Strength/3": number;
+            },
+            "itemStatBattery": {
+                "Item Cart Cannon": number;
+                "Item Cart Laser": number;
+                "Item Cart Medium": number;
+                "Item Cart Small": number;
+                "Item Drone Battery": number;
+                "Item Drone Feather": number;
+                "Item Drone Indestructible": number;
+                "Item Drone Torque": number;
+                "Item Drone Zero Gravity": number;
+                "Item Duck Bucket": number;
+                "Item Extraction Tracker": number;
+                "Item Grenade Duct Taped": number;
+                "Item Grenade Explosive": number;
+                "Item Grenade Human": number;
+                "Item Grenade Shockwave": number;
+                "Item Grenade Stun": number;
+                "Item Gun Handgun": number;
+                "Item Gun Laser": number;
+                "Item Gun Shockwave": number;
+                "Item Gun Shotgun": number;
+                "Item Gun Stun": number;
+                "Item Gun Tranq": number;
+                "Item Health Pack Large": number;
+                "Item Health Pack Medium": number;
+                "Item Health Pack Small": number;
+                "Item Melee Baseball Bat": number;
+                "Item Melee Frying Pan": number;
+                "Item Melee Inflatable Hammer": number;
+                "Item Melee Sledge Hammer": number;
+                "Item Melee Stun Baton": number;
+                "Item Melee Sword": number;
+                "Item Mine Explosive": number;
+                "Item Mine Shockwave": number;
+                "Item Mine Stun": number;
+                "Item Orb Zero Gravity": number;
+                "Item Phase Bridge": number;
+                "Item Power Crystal": number;
+                "Item Rubber Duck": number;
+                "Item Upgrade Map Player Count": number;
+                "Item Upgrade Player Crouch Rest": number;
+                "Item Upgrade Player Energy": number;
+                "Item Upgrade Player Extra Jump": number;
+                "Item Upgrade Player Grab Range": number;
+                "Item Upgrade Player Grab Strength": number;
+                "Item Upgrade Player Health": number;
+                "Item Upgrade Player Sprint Speed": number;
+                "Item Upgrade Player Tumble Launch": number;
+                "Item Upgrade Player Tumble Wings": number;
+                "Item Valuable Tracker": number;
+                "Item Cart Medium/1": number;
+                "Item Grenade Human/1": number;
+                "Item Duck Bucket/1": number;
+                "Item Grenade Human/2": number;
+                "Item Power Crystal/1": number;
+                "Item Upgrade Player Energy/1": number;
+                "Item Upgrade Player Energy/2": number;
+                "Item Upgrade Player Extra Jump/1": number;
+                "Item Upgrade Player Health/1": number;
+                "Item Rubber Duck/1": number;
+                "Item Orb Zero Gravity/1": number;
+                "Item Upgrade Player Tumble Wings/1": number;
+                "Item Power Crystal/2": number;
+                "Item Grenade Explosive/1": number;
+                "Item Cart Small/1": number;
+                "Item Upgrade Player Grab Range/1": number;
+                "Item Power Crystal/3": number;
+                "Item Health Pack Large/1": number;
+                "Item Phase Bridge/1": number;
+                "Item Upgrade Player Grab Range/2": number;
+                "Item Upgrade Player Sprint Speed/1": number;
+                "Item Gun Shockwave/1": number;
+                "Item Mine Explosive/1": number;
+                "Item Upgrade Player Sprint Speed/2": number;
+                "Item Upgrade Player Grab Strength/1": number;
+                "Item Grenade Explosive/2": number;
+                "Item Upgrade Player Sprint Speed/3": number;
+                "Item Power Crystal/4": number;
+                "Item Power Crystal/5": number;
+                "Item Drone Battery/1": number;
+                "Item Gun Handgun/1": number;
+                "Item Gun Laser/1": number;
+                "Item Gun Shotgun/1": number;
+                "Item Gun Tranq/1": number;
+                "Item Upgrade Player Crouch Rest/1": number;
+                "Item Mine Stun/1": number;
+                "Item Grenade Stun/1": number;
+                "Item Upgrade Player Crouch Rest/2": number;
+                "Item Valuable Tracker/1": number;
+                "Item Cart Medium/2": number;
+                "Item Upgrade Player Tumble Launch/1": number;
+                "Item Health Pack Small/3": number;
+                "Item Upgrade Map Player Count/1": number;
+                "Item Upgrade Player Crouch Rest/3": number;
+                "Item Health Pack Medium/4": number;
+                "Item Health Pack Medium/5": number;
+                "Item Duck Bucket/2": number;
+                "Item Grenade Duct Taped/1": number;
+                "Item Cart Small/2": number;
+                "Item Drone Indestructible/1": number;
+                "Item Grenade Shockwave/1": number;
+                "Item Gun Stun/1": number;
+                "Item Cart Cannon/1": number;
+                "Item Upgrade Player Energy/3": number;
+                "Item Health Pack Medium/6": number;
+                "Item Health Pack Small/4": number;
+                "Item Health Pack Large/3": number;
+                "Item Upgrade Player Grab Strength/2": number;
+                "Item Upgrade Player Energy/4": number;
+                "Item Upgrade Player Energy/5": number;
+                "Item Upgrade Player Energy/6": number;
+                "Item Health Pack Small/5": number;
+                "Item Upgrade Player Energy/7": number;
+                "Item Upgrade Player Crouch Rest/4": number;
+                "Item Upgrade Player Grab Range/3": number;
+                "Item Upgrade Player Grab Strength/3": number;
+            }
+        }
+    }
+}
+
+export type { RepoFile }
