@@ -1,29 +1,31 @@
 import React, { useState, useCallback } from 'react';
 import { decryptEs3 } from '../../../utils/encryption';
+import { postFetcher } from '../../../utils/fetcher';
 
 export default function FileDropArea() {
   const [fileContent, setFileContent] = useState('');
   const [isDragging, setIsDragging] = useState(false);
 
   // handle the drop event
-  const handleDrop = useCallback((e) => {
+  const handleDrop = useCallback(async (e) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragging(false);
 
-    const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
+    // const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
     const file = e.dataTransfer.files[0];
     if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-    const arrayBuffer = reader.result; // This is an ArrayBuffer
-    const uint8 = new Uint8Array(arrayBuffer);
+    const formData = new FormData();
 
-    const decrypted = decryptEs3(uint8, password);
-    console.log(decrypted);
-    };
-    reader.readAsArrayBuffer(file); // read file as text
+    formData.append('file', file);
+
+    try {
+      const res = await postFetcher('http://localhost:3000/file-manager/readfile', formData);
+      console.log(res);
+    } finally {
+      //
+    }
   }, []);
 
   // handle drag events

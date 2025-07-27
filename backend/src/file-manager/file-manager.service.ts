@@ -1,9 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFileManagerDto } from './dto/create-file-manager.dto';
 import { UpdateFileManagerDto } from './dto/update-file-manager.dto';
+import { ReadFileDto } from './dto/read-file-dto';
+import { decryptEs3 } from './utils/encryption';
+
+const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 
 @Injectable()
 export class FileManagerService {
+
+  readFile(readFileDto: ReadFileDto, fileBuffer: Buffer) {
+    
+
+    const encryptedBytes = new Uint8Array(fileBuffer);
+    const result = decryptEs3(encryptedBytes, password);
+    return result;
+  } 
+
+
   create(createFileManagerDto: CreateFileManagerDto) {
     return 'This action adds a new fileManager';
   }
