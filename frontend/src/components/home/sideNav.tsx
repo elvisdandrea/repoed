@@ -17,13 +17,13 @@ const SideNavView: React.FC = () => {
                         
                         <li className="nav-item active">
                             <a className="nav-link" href="/edit">
-                                <i className="fas fa-fw fa-tachometer-alt"></i>
+                                <i className="fas fa-fw fa-file-alt"></i>
                                 <span>Edit File</span></a>
                         </li>
 
                         <li className="nav-item">
                             <a className="nav-link" href="/new">
-                                <i className="fas fa-fw fa-tachometer-alt"></i>
+                                <i className="fas fa-fw fa-save"></i>
                                 <span>New File</span></a>
                         </li>
 

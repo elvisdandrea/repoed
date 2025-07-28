@@ -1,7 +1,11 @@
+import { PageHeader } from "../composition/PageHeader"
+
 const NewFile: React.FC = () => {
 
     return (
-        <>NEW FILE</>
+        <PageHeader 
+            title="To Be Added"
+        />
     )
 }
 
