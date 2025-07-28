@@ -36,6 +36,7 @@ type RepoFile = {
                 "save level": number;
             },
             "itemsPurchased": {
+                [key: string]: number;
                 "Item Cart Cannon": number;
                 "Item Cart Laser": number;
                 "Item Cart Medium": number;

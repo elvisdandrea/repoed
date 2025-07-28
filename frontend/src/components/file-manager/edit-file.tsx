@@ -11,6 +11,8 @@ import type { RepoFile } from "../../types/RepoFile";
 import { TeamBox } from "./team-box";
 import type { RunStats, Team } from "../../types/team";
 import { postFetcher } from "../../utils/fetcher";
+import { ItemsPurchasedBox } from "./items-purchased-box";
+import type { ItemsPurchased } from "../../types/items";
 
 const EditFile: React.FC = () => {
 
@@ -19,6 +21,7 @@ const EditFile: React.FC = () => {
     const [team, setTeam] = useState<Team | undefined>(undefined);
     const [runStats, setRunStats] = useState<RunStats | undefined>(undefined);
     const [fileName, setFileName] = useState<string>("");
+    const [itemsPurchased, setItemsPurchased] = useState<ItemsPurchased | undefined>(undefined);
 
     const handleSetFileContent = (content: Object, contentFileName: string) => {
         const newFileContent = content as RepoFile;
@@ -58,9 +61,15 @@ const EditFile: React.FC = () => {
             "save level": newFileContent.dictionaryOfDictionaries.value.runStats["save level"],
         }
 
+        const itemsPurchased: ItemsPurchased = {};
+        Object.entries(newFileContent.dictionaryOfDictionaries.value.itemsPurchased as ItemsPurchased).forEach(([key, value]) => {
+            itemsPurchased[key as keyof ItemsPurchased] = value as number;
+        });
+
         setPlayers(players);
         setTeam(team);
         setRunStats(runStats);
+        setItemsPurchased(itemsPurchased);
         setFileName(contentFileName);
     }
 
@@ -111,7 +120,16 @@ const EditFile: React.FC = () => {
         value: number
     ) => {
         if (!fileContent) return;
-        fileContent.dictionaryOfDictionaries.value.runStats[statsFIeld].value = value;
+        fileContent.dictionaryOfDictionaries.value.runStats[statsFIeld] = value;
+        handleSetFileContent(fileContent, fileName);
+    }, [fileContent, setFileContent, fileName]);
+
+    const handleChangeItem = useCallback((
+        itemFIeld: string,
+        value: number
+    ) => {
+        if (!fileContent) return;
+        fileContent.dictionaryOfDictionaries.value.itemsPurchased[itemFIeld] = value;
         handleSetFileContent(fileContent, fileName);
     }, [fileContent, setFileContent, fileName]);
 
@@ -148,6 +166,12 @@ const EditFile: React.FC = () => {
                             runStats={runStats}
                             handleChangeTeam={handleChangeTeam}
                             handleChangeRunStats={handleChangeRunStats}
+                        />
+                    )}
+                    {itemsPurchased && (
+                        <ItemsPurchasedBox 
+                            itemsPurchased={itemsPurchased}
+                            handleChangeItem={handleChangeItem}
                         />
                     )}
                 </div>
