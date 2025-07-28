@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { postFetcher } from '../../../utils/fetcher';
 
 interface FileDropAreaProps {
-  handleSetFileContent: (content: Object) => void;
+  handleSetFileContent: (content: Object, fileName: string) => void;
 }
 
 const FileDropArea: React.FC<FileDropAreaProps> = ({ 
@@ -25,8 +25,8 @@ const FileDropArea: React.FC<FileDropAreaProps> = ({
     formData.append('file', file);
 
     try {
-      const res = await postFetcher('http://localhost:3000/file-manager/readfile', formData);
-      handleSetFileContent(JSON.parse(res.decrypted));
+      const res = await postFetcher(`${import.meta.env.VITE_API_URL}file-manager/readfile`, formData);
+      handleSetFileContent(JSON.parse(res.decrypted), file.name);
     } finally {
       //
     }

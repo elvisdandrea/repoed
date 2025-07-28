@@ -9,7 +9,7 @@ import { UserBox } from "./user-box";
 import { type Player } from "../../types/player";
 import type { RepoFile } from "../../types/RepoFile";
 import { TeamBox } from "./team-box";
-import type { Team } from "../../types/team";
+import type { RunStats, Team } from "../../types/team";
 import { postFetcher } from "../../utils/fetcher";
 
 const EditFile: React.FC = () => {
@@ -17,8 +17,10 @@ const EditFile: React.FC = () => {
     const [fileContent, setFileContent] = useState<RepoFile | undefined>(undefined);
     const [players, setPlayers] = useState<Player[]>([]);
     const [team, setTeam] = useState<Team | undefined>(undefined);
+    const [runStats, setRunStats] = useState<RunStats | undefined>(undefined);
+    const [fileName, setFileName] = useState<string>("");
 
-    const handleSetFileContent = (content: Object) => {
+    const handleSetFileContent = (content: Object, contentFileName: string) => {
         const newFileContent = content as RepoFile;
         setFileContent(newFileContent);
         
@@ -46,14 +48,26 @@ const EditFile: React.FC = () => {
             timePlayed: newFileContent.timePlayed.value
         }
 
+        const runStats: RunStats = {
+            level: newFileContent.dictionaryOfDictionaries.value.runStats.level,
+            currency: newFileContent.dictionaryOfDictionaries.value.runStats.currency,
+            chargingStationCharge: newFileContent.dictionaryOfDictionaries.value.runStats.chargingStationCharge,
+            chargingStationChargeTotal: newFileContent.dictionaryOfDictionaries.value.runStats.chargingStationChargeTotal,
+            lives: newFileContent.dictionaryOfDictionaries.value.runStats.lives,
+            totalHaul: newFileContent.dictionaryOfDictionaries.value.runStats.totalHaul,
+            "save level": newFileContent.dictionaryOfDictionaries.value.runStats["save level"],
+        }
+
         setPlayers(players);
         setTeam(team);
+        setRunStats(runStats);
+        setFileName(contentFileName);
     }
 
     const handleSaveFile = useCallback(async () => {
 
         try {
-            const blob = await postFetcher<Blob>('http://localhost:3000/file-manager/savefile', fileContent, {
+            const blob = await postFetcher<Blob>(`${import.meta.env.VITE_API_URL}file-manager/savefile`, fileContent, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -62,7 +76,7 @@ const EditFile: React.FC = () => {
             const url = URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "tempname.es3";
+            a.download = fileName;
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -71,7 +85,7 @@ const EditFile: React.FC = () => {
 
         }
 
-    }, [fileContent]);
+    }, [fileContent, fileName]);
 
     const handleChangePlayer = useCallback((
         playerId: string, 
@@ -80,8 +94,8 @@ const EditFile: React.FC = () => {
     ) => {
         if (!fileContent) return;
         fileContent.dictionaryOfDictionaries.value[field][playerId] = value;
-        handleSetFileContent(fileContent);
-    }, [fileContent, setFileContent]);
+        handleSetFileContent(fileContent, fileName);
+    }, [fileContent, setFileContent, fileName]);
 
     const handleChangeTeam = useCallback((
         teamFIeld: string,
@@ -89,8 +103,17 @@ const EditFile: React.FC = () => {
     ) => {
         if (!fileContent) return;
         fileContent[teamFIeld].value = value;
-        handleSetFileContent(fileContent);
-    }, [fileContent, setFileContent]);
+        handleSetFileContent(fileContent, fileName);
+    }, [fileContent, setFileContent, fileName]);
+
+    const handleChangeRunStats = useCallback((
+        statsFIeld: string,
+        value: number
+    ) => {
+        if (!fileContent) return;
+        fileContent.dictionaryOfDictionaries.value.runStats[statsFIeld].value = value;
+        handleSetFileContent(fileContent, fileName);
+    }, [fileContent, setFileContent, fileName]);
 
     return (
         <Container>
@@ -122,7 +145,9 @@ const EditFile: React.FC = () => {
                     {team && (
                         <TeamBox
                             team={team}
+                            runStats={runStats}
                             handleChangeTeam={handleChangeTeam}
+                            handleChangeRunStats={handleChangeRunStats}
                         />
                     )}
                 </div>

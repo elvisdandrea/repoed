@@ -26,6 +26,7 @@ type RepoFile = {
         "value": {
             [key: string]: any;
             "runStats": {
+                [key: string]: any;
                 "level": number;
                 "currency": number;
                 "lives": number;

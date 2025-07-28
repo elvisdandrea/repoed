@@ -11,7 +11,6 @@ export class FileManagerService {
   readFile(readFileDto: ReadFileDto, fileBuffer: Buffer) {
     const encryptedBytes = new Uint8Array(fileBuffer);
     const result = decryptEs3(encryptedBytes, password);
-    console.log(result);
     return result;
   } 
 

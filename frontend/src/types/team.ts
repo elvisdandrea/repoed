@@ -4,10 +4,30 @@ export enum TeamFields {
     timePlayed = "Time Played"
 }
 
+export enum RunStatsFields {
+    "level" = "Level",
+    "currency" = "Currency",
+    "lives" = "Lives",
+    "chargingStationCharge" = "Charging Station Charge",
+    "chargingStationChargeTotal" = "Charging Station Charge Total",
+    "totalHaul" = "Total Haul",
+    "save level" = "Save Level"
+}
+
 type Team = {
     teamName: string;
     dateAndTime: string;
     timePlayed: number;
 }
 
-export type { Team }
+type RunStats = {
+        "level": number,
+        "currency": number,
+        "lives": number,
+        "chargingStationCharge": number,
+        "chargingStationChargeTotal": number,
+        "totalHaul": number,
+        "save level": number
+}
+
+export type { Team, RunStats }
