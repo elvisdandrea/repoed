@@ -26,7 +26,7 @@ const FileDropArea: React.FC<FileDropAreaProps> = ({
 
     try {
       const res = await postFetcher(`${import.meta.env.VITE_API_URL}file-manager/readfile`, formData);
-      handleSetFileContent(JSON.parse(res.decrypted), file.name);
+      handleSetFileContent(res, file.name);
     } finally {
       //
     }

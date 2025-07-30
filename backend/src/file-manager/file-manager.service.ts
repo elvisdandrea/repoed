@@ -8,15 +8,14 @@ const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 @Injectable()
 export class FileManagerService {
 
-  readFile(readFileDto: ReadFileDto, fileBuffer: Buffer) {
-    const encryptedBytes = new Uint8Array(fileBuffer);
-    const result = decryptEs3(encryptedBytes, password);
+  readFile(readFileDto: ReadFileDto, file: Express.Multer.File) {
+    const result = decryptEs3(file.buffer, password).toString('utf-8');
     return result;
   } 
 
   async saveFile(res: Response, body: any) {
     const jsonString = JSON.stringify(body);
-    const encryptedBytes = encryptEs3(jsonString, password); 
+    const encryptedBytes = encryptEs3(Buffer.from(jsonString, 'utf-8'), password); 
 
     // Send as a downloadable file
     res.set({
