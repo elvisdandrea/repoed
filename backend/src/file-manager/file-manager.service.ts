@@ -9,8 +9,13 @@ const password = "Why would you want to cheat?... :o It's no fun. :') :'D";
 export class FileManagerService {
 
   readFile(readFileDto: ReadFileDto, file: Express.Multer.File) {
-    const result = decryptEs3(file.buffer, password).toString('utf-8');
-    return result;
+    const encryptedBuffer = file.buffer;
+    const decryptedBuffer = decryptEs3(encryptedBuffer, password); 
+    
+    const finalBuffer = decryptedBuffer.toString('utf-8');
+    const parsed = JSON.parse(finalBuffer);
+
+    return parsed;
   } 
 
   async saveFile(res: Response, body: any) {
