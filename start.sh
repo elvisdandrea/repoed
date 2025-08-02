@@ -1,28 +1,20 @@
 #!/bin/bash
 
-# Exit script on error
 set -e
 
-# Required Node version
 REQUIRED_NODE_MAJOR=20
 
-# Function to install Node 20 via nvm
 install_node() {
   echo "Installing Node.js 20 using nvm..."
 
-  # Install nvm if not installed
   if ! command -v nvm &> /dev/null; then
     echo "nvm not found. Installing nvm..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
-    # Load nvm
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  else
-    echo "nvm is already installed."
   fi
 
-  # Load nvm (in case it's not loaded)
   export NVM_DIR="$HOME/.nvm"
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
@@ -30,11 +22,11 @@ install_node() {
   nvm use 20
 }
 
-# Check for Node.js and its version
+# Ensure Node 20 is installed
 if command -v node &> /dev/null; then
   NODE_MAJOR=$(node -v | sed 's/v\([0-9]*\).*/\1/')
   if [ "$NODE_MAJOR" -ne "$REQUIRED_NODE_MAJOR" ]; then
-    echo "Node.js version is not $REQUIRED_NODE_MAJOR.x. Current version: $(node -v)"
+    echo "Node.js version is not $REQUIRED_NODE_MAJOR.x (found $(node -v))"
     install_node
   else
     echo "Node.js $REQUIRED_NODE_MAJOR is already installed."
@@ -64,7 +56,26 @@ else
   echo "Frontend dependencies already installed."
 fi
 
-# Start backend and frontend in parallel
+# Create .env file for backend if missing
+if [ ! -f "./backend/.env" ]; then
+  echo ""
+  echo "Backend .env is not set. Please inform the FRONTEND URL host (without http:// or port):"
+  read -rp "Frontend host: " FRONTEND_HOST
+  echo "FRONTEND_URL=http://$FRONTEND_HOST:5173" > ./backend/.env
+  echo "Created ./backend/.env with FRONTEND_URL=http://$FRONTEND_HOST:5173"
+fi
+
+# Create .env file for frontend if missing
+if [ ! -f "./frontend/.env" ]; then
+  echo ""
+  echo "Frontend .env is not set. Please inform the BACKEND URL host (without http:// or port):"
+  read -rp "Backend host: " BACKEND_HOST
+  echo "VITE_API_URL=\"http://$BACKEND_HOST:3000/\"" > ./frontend/.env
+  echo "Created ./frontend/.env with VITE_API_URL=http://$BACKEND_HOST:3000/"
+fi
+
+# Start backend and frontend
+echo ""
 echo "Starting backend and frontend..."
 (cd backend && npm run start:dev) & 
 (cd frontend && npm run dev) &
